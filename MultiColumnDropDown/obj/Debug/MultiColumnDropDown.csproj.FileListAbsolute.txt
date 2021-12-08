@@ -1,0 +1,7 @@
+C:\Git\MultiColumnDropDown\MultiColumnDropDown\bin\Debug\MultiColumnDropDown.dll
+C:\Git\MultiColumnDropDown\MultiColumnDropDown\bin\Debug\MultiColumnDropDown.pdb
+C:\Git\MultiColumnDropDown\MultiColumnDropDown\obj\Debug\MultiColumnDropDown.MultiColumnDropDown.resources
+C:\Git\MultiColumnDropDown\MultiColumnDropDown\obj\Debug\MultiColumnDropDown.csproj.GenerateResource.cache
+C:\Git\MultiColumnDropDown\MultiColumnDropDown\obj\Debug\MultiColumnDropDown.csproj.CoreCompileInputs.cache
+C:\Git\MultiColumnDropDown\MultiColumnDropDown\obj\Debug\MultiColumnDropDown.dll
+C:\Git\MultiColumnDropDown\MultiColumnDropDown\obj\Debug\MultiColumnDropDown.pdb

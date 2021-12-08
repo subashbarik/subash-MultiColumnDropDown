@@ -12,28 +12,42 @@ namespace MultiColumnDropDown
 {
     public partial class MultiColumnDropDown: UserControl
     {
+        //+ Grid related properties
         public DataGridView gridMCD { get; set; }
+        public TextBox txtCtrl { get; set; }
+        public Button btnCtrl { get; set; }
+        public int GridWidth { get; set; }
+        public int GridHeight { get; set; }
+        public int GridXPOS { get; set; }
+        public int GridYPOS { get; set; }
         public bool bGridCreated { get; set; } = false;
         public GridViewMCD objGVM = null;
+        public List<GridViewData> lstGVD = null;
+        // - Grid related properties
+
         public MultiColumnDropDown()
         {
             InitializeComponent();
+            this.txtCtrl = this.txtMCD;
+            this.btnCtrl = this.btnMCD;
+            CreateGV();
         }
 
         private void MultiColumnDropDown_Load(object sender, EventArgs e)
         {
-            if(!this.bGridCreated)
+            /*if(!this.bGridCreated)
             {
                 objGVM = new GridViewMCD();
                 this.gridMCD = objGVM.gridMCD;
                 this.bGridCreated = objGVM.bGridCreated;
                 this.Controls.Add(this.gridMCD); // add the grid view control to the form
-            }
-            
+            }*/
+          
         }
         // default code to create a gridview can be modified in the form level
         public virtual void CreateGV()
         {
+            
             // Create a Grid View in the constructor
             if (!this.bGridCreated)
             {
@@ -83,11 +97,35 @@ namespace MultiColumnDropDown
         }
         // Default code to draw an area where gird view will be displayed
         // should be implemented in the form level
-        public virtual void ShowGV()
+        public virtual void ShowHideGV()
         {
-            this.gridMCD.Visible = true;
-            this.gridMCD.AllowUserToAddRows = false;
-            this.gridMCD.ClearSelection();
+            if(this.gridMCD.Visible == false)
+            {
+                LoadGV();
+                this.gridMCD.AllowUserToAddRows = false;
+                this.gridMCD.ClearSelection();
+
+                //this.Controls.Add(this.gridMCD);
+
+                //Create a rectangle to display the grid
+                Rectangle rectMCD = new Rectangle();
+                rectMCD.X = txtMCD.Location.X;
+                rectMCD.Y = txtMCD.Location.Y + txtMCD.Height;
+                rectMCD.Height = 95;
+                rectMCD.Width = 199;
+
+                this.gridMCD.Size = new Size(200, 100);
+                this.gridMCD.Location = new Point(rectMCD.X, rectMCD.Y);
+                this.gridMCD.BringToFront();
+
+                this.gridMCD.Visible = true;
+
+            }
+            else
+            {
+                this.gridMCD.Visible = false;
+            }
+            
         }
 
         // Default code to hide gridview
@@ -95,6 +133,20 @@ namespace MultiColumnDropDown
         public virtual void HideGV()
         {
             this.gridMCD.Visible = false;
+        }
+
+        // Default code to load data into the gridview
+        // should be implemented in the form level
+        public virtual void LoadGV()
+        {
+            // Prepare Sample data
+            lstGVD = new List<GridViewData>();
+            lstGVD.Add(new GridViewData { ID = 1, Name = "Test Name1" });
+            lstGVD.Add(new GridViewData { ID = 2, Name = "Test Name2" });
+            lstGVD.Add(new GridViewData { ID = 3, Name = "Test Name3" });
+            lstGVD.Add(new GridViewData { ID = 4, Name = "Test Name4" });
+
+            this.gridMCD.DataSource = lstGVD;
         }
 
     }

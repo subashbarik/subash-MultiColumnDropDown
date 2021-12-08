@@ -8,8 +8,9 @@
     <OutputType>Library</OutputType>
     <RootNamespace>MultiColumnDropDown</RootNamespace>
     <AssemblyName>MultiColumnDropDown</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GridViewData.cs" />
     <Compile Include="GridViewMCD.cs" />
     <Compile Include="MultiColumnDropDown.cs">
       <SubType>UserControl</SubType>
