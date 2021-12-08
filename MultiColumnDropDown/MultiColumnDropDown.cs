@@ -30,7 +30,8 @@ namespace MultiColumnDropDown
             InitializeComponent();
             this.txtCtrl = this.txtMCD;
             this.btnCtrl = this.btnMCD;
-            CreateGV();
+            this.gridMCD = new DataGridView();
+            //CreateGV();
         }
 
         private void MultiColumnDropDown_Load(object sender, EventArgs e)
@@ -51,7 +52,7 @@ namespace MultiColumnDropDown
             // Create a Grid View in the constructor
             if (!this.bGridCreated)
             {
-                gridMCD = new DataGridView();
+                //gridMCD = new DataGridView();
                 gridMCD.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 gridMCD.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
                 //Header column cell style
@@ -109,8 +110,8 @@ namespace MultiColumnDropDown
 
                 //Create a rectangle to display the grid
                 Rectangle rectMCD = new Rectangle();
-                rectMCD.X = txtMCD.Location.X;
-                rectMCD.Y = txtMCD.Location.Y + txtMCD.Height;
+                rectMCD.X = this.Location.X;
+                rectMCD.Y = this.Location.Y + txtMCD.Height;
                 rectMCD.Height = 95;
                 rectMCD.Width = 199;
 
