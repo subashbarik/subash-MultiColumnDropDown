@@ -5,4 +5,3 @@ C:\Git\MultiColumnDropDown\MultiColumnDropDown\obj\Debug\MultiColumnDropDown.csp
 C:\Git\MultiColumnDropDown\MultiColumnDropDown\obj\Debug\MultiColumnDropDown.csproj.CoreCompileInputs.cache
 C:\Git\MultiColumnDropDown\MultiColumnDropDown\obj\Debug\MultiColumnDropDown.dll
 C:\Git\MultiColumnDropDown\MultiColumnDropDown\obj\Debug\MultiColumnDropDown.pdb
-C:\Git\MultiColumnDropDown\MultiColumnDropDown\obj\Debug\MultiColumnDropDown.csprojAssemblyReference.cache
