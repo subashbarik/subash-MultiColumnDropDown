@@ -28,25 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MultiColumnDropDown));
             this.btnMCD = new System.Windows.Forms.Button();
             this.txtMCD = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnMCD
             // 
-            this.btnMCD.Location = new System.Drawing.Point(123, 2);
-            this.btnMCD.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnMCD.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnMCD.Image = ((System.Drawing.Image)(resources.GetObject("btnMCD.Image")));
+            this.btnMCD.Location = new System.Drawing.Point(145, 2);
+            this.btnMCD.Margin = new System.Windows.Forms.Padding(2);
             this.btnMCD.Name = "btnMCD";
-            this.btnMCD.Size = new System.Drawing.Size(22, 18);
+            this.btnMCD.Size = new System.Drawing.Size(15, 20);
             this.btnMCD.TabIndex = 1;
             this.btnMCD.UseVisualStyleBackColor = true;
             // 
             // txtMCD
             // 
             this.txtMCD.Location = new System.Drawing.Point(2, 2);
-            this.txtMCD.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtMCD.Margin = new System.Windows.Forms.Padding(2);
             this.txtMCD.Name = "txtMCD";
-            this.txtMCD.Size = new System.Drawing.Size(126, 20);
+            this.txtMCD.Size = new System.Drawing.Size(143, 20);
             this.txtMCD.TabIndex = 2;
             // 
             // MultiColumnDropDown
@@ -55,9 +58,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.txtMCD);
             this.Controls.Add(this.btnMCD);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MultiColumnDropDown";
-            this.Size = new System.Drawing.Size(144, 22);
+            this.Size = new System.Drawing.Size(161, 25);
             this.Load += new System.EventHandler(this.MultiColumnDropDown_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

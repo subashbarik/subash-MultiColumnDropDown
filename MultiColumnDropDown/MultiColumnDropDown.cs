@@ -94,8 +94,8 @@ namespace MultiColumnDropDown
             //Assign events
             this.gridCtrl.Scroll += new System.Windows.Forms.ScrollEventHandler(this.PopUpGrid_Scroll);
             this.gridCtrl.SelectionChanged += new System.EventHandler(this.PopUpGrid_SelectionChanged);
-            //this.PopUpGrid.Leave += new EventHandler(dgvProduct_Leave);
-            //this.PopUpGrid.KeyDown += new KeyEventHandler(dgvProduct_KeyDown);
+            this.gridCtrl.Leave += new EventHandler(this.dgvProduct_Leave);
+            this.gridCtrl.KeyDown += new KeyEventHandler(this.dgvProduct_KeyDown);
             this.gridCtrl.CellClick += new DataGridViewCellEventHandler(this.PopUpGrid_CellClick);
 
 
@@ -131,7 +131,13 @@ namespace MultiColumnDropDown
         {
 
         }
-
+        public virtual void dgvProduct_KeyDown(object sender, KeyEventArgs e)
+        {
+           
+        }
+        public virtual void dgvProduct_Leave(object sender, EventArgs e)
+        {
+        }
         private void MultiColumnDropDown_Load(object sender, EventArgs e)
         {
           
