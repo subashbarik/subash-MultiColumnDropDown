@@ -1,4 +1,17 @@
-﻿using System;
+﻿
+/*                      Auther : Subash Chandra Barik 
+ *                      Date   : 11-12-2021
+ *                      Purpose: Purpose of the UserControl is to show multi column grid. It consists of a TextBox Control,
+ *                               a Button Control and a DataGridView Control. It display the DataGridView Control when the
+ *                               Button Control is Clicked. MultiColumnDropDown class serves as a Base Class hence it exposes
+ *                               many functionality and events which can be extended in the Child class. The main usage of this
+ *                               UserControl is to display only few records in the  DataGridView Control (which can be configured)
+ *                               and fetch more records when scroll event of the DataGridView is fired ,it is helpful when we have
+ *                               huges number of records in the table.
+ *                               
+ * 
+ */
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -48,8 +61,8 @@ namespace MultiColumnDropDown
             this.txtCtrl = this.txtMCD;
             
         }
-
-        public void SetUpGrid()
+        #region CoreCode
+        public virtual void SetUpGrid()
         {
             // Data fetching related property Initialization
             this.DtData = new DataTable();
@@ -92,12 +105,14 @@ namespace MultiColumnDropDown
             this.gridCtrl.AllowUserToAddRows = this.bAllowUserToAddRows;
 
             //Assign events
+            //GridView Event Handlers
             this.gridCtrl.Scroll += new System.Windows.Forms.ScrollEventHandler(this.PopUpGrid_Scroll);
             this.gridCtrl.SelectionChanged += new System.EventHandler(this.PopUpGrid_SelectionChanged);
-            this.gridCtrl.Leave += new EventHandler(this.dgvProduct_Leave);
-            this.gridCtrl.KeyDown += new KeyEventHandler(this.dgvProduct_KeyDown);
+            this.gridCtrl.Leave += new EventHandler(this.PopUpGrid_Leave);
+            this.gridCtrl.KeyDown += new KeyEventHandler(this.PopUpGrid_KeyDown);
             this.gridCtrl.CellClick += new DataGridViewCellEventHandler(this.PopUpGrid_CellClick);
-
+            //TextBox Event Handlers
+            this.txtCtrl.KeyUp += new KeyEventHandler(this.txtCtrl_KeyUp);
 
             // By Default grid should be invisible
             this.gridCtrl.Visible = false;
@@ -109,41 +124,6 @@ namespace MultiColumnDropDown
             count = this.gridCtrl.Height / count;
             return count;
         }
-
-        public virtual void PopUpGrid_Scroll(object sender, ScrollEventArgs e)
-        {  
-            int display = this.gridCtrl.Rows.Count - this.gridCtrl.DisplayedRowCount(false);
-            if (e.Type == ScrollEventType.SmallIncrement || e.Type == ScrollEventType.LargeIncrement)
-            {
-                if (e.NewValue >= this.gridCtrl.Rows.Count - GetDisplayedRowsCount())
-                {
-                    this.PageIndex = this.PageIndex + 1;
-                    FetchDataAndMerge();
-                    this.gridCtrl.FirstDisplayedScrollingRowIndex = display;
-                }
-            }
-        }
-        public virtual void PopUpGrid_SelectionChanged(object sender, EventArgs e)
-        {
-            this.gridCtrl.ClearSelection();
-        }
-        public virtual void PopUpGrid_CellClick(object sender, EventArgs e)
-        {
-
-        }
-        public virtual void dgvProduct_KeyDown(object sender, KeyEventArgs e)
-        {
-           
-        }
-        public virtual void dgvProduct_Leave(object sender, EventArgs e)
-        {
-        }
-        private void MultiColumnDropDown_Load(object sender, EventArgs e)
-        {
-          
-        }
-        
-       
         // Default code to load data into the gridview
         // should be implemented in the form level
         public virtual void FetchData()
@@ -170,7 +150,7 @@ namespace MultiColumnDropDown
             lstGVD.Add(new GridViewData { ID = 7, Name = "Test Name7" });
             lstGVD.Add(new GridViewData { ID = 8, Name = "Test Name8" });
             lstGVD.Add(new GridViewData { ID = 9, Name = "Test Name9" });
-            lstGVD.Add(new GridViewData { ID = 10, Name = "Test Name10"});
+            lstGVD.Add(new GridViewData { ID = 10, Name = "Test Name10" });
 
             this.gridCtrl.DataSource = lstGVD;
         }
@@ -185,7 +165,6 @@ namespace MultiColumnDropDown
                     this.bFirstFetch = false;
                 }
                 this.gridCtrl.ClearSelection();
-                //this.Controls.Add(this.gridMCD);
                 this.gridCtrl.Visible = true;
             }
             else
@@ -199,5 +178,50 @@ namespace MultiColumnDropDown
         {
             TogglePopUpGrid();
         }
+        #endregion
+        #region Virtual Implementation of GridView Event handlers
+        // + Virtual Implementation of GridView Events handlers
+        public virtual void PopUpGrid_Scroll(object sender, ScrollEventArgs e)
+        {  
+            int display = this.gridCtrl.Rows.Count - this.gridCtrl.DisplayedRowCount(false);
+            if (e.Type == ScrollEventType.SmallIncrement || e.Type == ScrollEventType.LargeIncrement)
+            {
+                if (e.NewValue >= this.gridCtrl.Rows.Count - GetDisplayedRowsCount())
+                {
+                    this.PageIndex = this.PageIndex + 1;
+                    FetchDataAndMerge();
+                    this.gridCtrl.FirstDisplayedScrollingRowIndex = display;
+                }
+            }
+        }
+        public virtual void PopUpGrid_SelectionChanged(object sender, EventArgs e)
+        {
+            this.gridCtrl.ClearSelection();
+        }
+        public virtual void PopUpGrid_CellClick(object sender, EventArgs e)
+        {
+
+        }
+        public virtual void PopUpGrid_KeyDown(object sender, KeyEventArgs e)
+        {
+           
+        }
+        public virtual void PopUpGrid_Leave(object sender, EventArgs e)
+        {
+        }
+        private void MultiColumnDropDown_Load(object sender, EventArgs e)
+        {
+          
+        }
+        // - Virtual Implementation of GridView Events handlers
+        #endregion
+
+        #region Virtual implementation of TextBox Event handlers
+        public virtual void txtCtrl_KeyUp(object sender, KeyEventArgs e)
+        {
+
+        }
+        #endregion
+
     }
 }
