@@ -48,10 +48,14 @@ namespace MultiColumnDropDown
         public BindingSource Source { get; set; }
         public int PageIndex { get; set; }
         public int PageSize { get; set; }
+        public string WhereVal { get; set; } // If we type a value in the textbox control such text will be searched and match records will be displayed in the grid
         public string Sql { get; set; }
         public bool bFirstFetch { get; set; } = true;
-
         // - Grid related properties
+        //+ TextBox Control Properties
+        public string txtCtrlText { get; set; }
+        public string txtCtrlValue { get; set; }
+        //- TextBox Control Properties
 
         public MultiColumnDropDown()
         {
@@ -113,17 +117,14 @@ namespace MultiColumnDropDown
             this.gridCtrl.CellClick += new DataGridViewCellEventHandler(this.PopUpGrid_CellClick);
             //TextBox Event Handlers
             this.txtCtrl.KeyUp += new KeyEventHandler(this.txtCtrl_KeyUp);
-
+            this.txtCtrl.TextChanged += new EventHandler(this.txtCtrl_TextChanged);
+            //Button Event Handlers
+            this.btnCtrl.Click += new EventHandler(this.btnCtrl_Click);
             // By Default grid should be invisible
             this.gridCtrl.Visible = false;
 
         }
-        public virtual int GetDisplayedRowsCount()
-        {
-            int count = this.gridCtrl.Rows[this.gridCtrl.FirstDisplayedScrollingRowIndex].Height;
-            count = this.gridCtrl.Height / count;
-            return count;
-        }
+        
         // Default code to load data into the gridview
         // should be implemented in the form level
         public virtual void FetchData()
@@ -174,13 +175,19 @@ namespace MultiColumnDropDown
 
         }
 
-        public virtual void btnMCD_Click(object sender, EventArgs e)
+        public virtual void btnCtrl_Click(object sender, EventArgs e)
         {
             TogglePopUpGrid();
         }
         #endregion
         #region Virtual Implementation of GridView Event handlers
         // + Virtual Implementation of GridView Events handlers
+        public virtual int GetDisplayedRowsCount()
+        {
+            int count = this.gridCtrl.Rows[this.gridCtrl.FirstDisplayedScrollingRowIndex].Height;
+            count = this.gridCtrl.Height / count;
+            return count;
+        }
         public virtual void PopUpGrid_Scroll(object sender, ScrollEventArgs e)
         {  
             int display = this.gridCtrl.Rows.Count - this.gridCtrl.DisplayedRowCount(false);
@@ -218,6 +225,10 @@ namespace MultiColumnDropDown
 
         #region Virtual implementation of TextBox Event handlers
         public virtual void txtCtrl_KeyUp(object sender, KeyEventArgs e)
+        {
+
+        }
+        public virtual void txtCtrl_TextChanged(object sender, EventArgs e)
         {
 
         }
