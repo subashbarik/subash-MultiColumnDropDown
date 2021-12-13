@@ -115,6 +115,7 @@ namespace MultiColumnDropDown
             this.gridCtrl.Leave += new EventHandler(this.PopUpGrid_Leave);
             this.gridCtrl.KeyDown += new KeyEventHandler(this.PopUpGrid_KeyDown);
             this.gridCtrl.CellClick += new DataGridViewCellEventHandler(this.PopUpGrid_CellClick);
+            this.gridCtrl.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.gridCtrl_DataBindingComplete);
             //TextBox Event Handlers
             this.txtCtrl.KeyUp += new KeyEventHandler(this.txtCtrl_KeyUp);
             this.txtCtrl.TextChanged += new EventHandler(this.txtCtrl_TextChanged);
@@ -203,22 +204,59 @@ namespace MultiColumnDropDown
         }
         public virtual void PopUpGrid_SelectionChanged(object sender, EventArgs e)
         {
-            this.gridCtrl.ClearSelection();
+            //this.gridCtrl.ClearSelection();
         }
         public virtual void PopUpGrid_CellClick(object sender, EventArgs e)
         {
-
+            this.SelectRecordFromGrid();
         }
         public virtual void PopUpGrid_KeyDown(object sender, KeyEventArgs e)
         {
-           
+            if (e.KeyCode == Keys.Escape)
+            {
+                hideGridView();
+            }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                this.SelectRecordFromGrid();
+            }
         }
         public virtual void PopUpGrid_Leave(object sender, EventArgs e)
         {
         }
+        public virtual void gridCtrl_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            this.gridCtrl.ClearSelection();
+        }
         private void MultiColumnDropDown_Load(object sender, EventArgs e)
         {
           
+        }
+        public virtual void hideGridView()
+        {
+            this.gridCtrl.Visible = false;
+        }
+        public virtual void SelectRecordFromGrid()
+        {
+            this.txtCtrlText = this.gridCtrl.CurrentRow.Cells["Name"].Value.ToString();
+            this.txtCtrlValue = this.gridCtrl.CurrentRow.Cells["ID"].Value.ToString();
+            this.txtCtrl.Text = this.gridCtrl.CurrentRow.Cells["Name"].Value.ToString();
+            this.gridCtrl.Visible = false;
+        }
+        public virtual void focusPopupGrid(string keyCode)
+        {
+            // Put the focus in the popup grid and select the first record
+            if ((keyCode.ToUpper() == "DOWN") || (keyCode.ToUpper() == "UP"))
+            {
+                if (this.gridCtrl.Visible == true)
+                {
+                    if (this.gridCtrl.Rows.Count != 0)
+                    {
+                        this.gridCtrl.Focus();
+                        this.gridCtrl.Rows[0].Selected = true;
+                    }
+                }
+            }
         }
         // - Virtual Implementation of GridView Events handlers
         #endregion
