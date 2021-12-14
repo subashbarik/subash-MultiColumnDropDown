@@ -115,6 +115,8 @@ namespace MultiColumnDropDown
             this.gridCtrl.Leave += new EventHandler(this.PopUpGrid_Leave);
             this.gridCtrl.KeyDown += new KeyEventHandler(this.PopUpGrid_KeyDown);
             this.gridCtrl.CellClick += new DataGridViewCellEventHandler(this.PopUpGrid_CellClick);
+            /*this.gridCtrl.Click += new System.EventHandler(this.PopUpGrid_Click);
+            this.gridCtrl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PopUpGrid_MouseMove);*/
             this.gridCtrl.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.gridCtrl_DataBindingComplete);
             //TextBox Event Handlers
             this.txtCtrl.KeyUp += new KeyEventHandler(this.txtCtrl_KeyUp);
@@ -206,6 +208,14 @@ namespace MultiColumnDropDown
         {
             //this.gridCtrl.ClearSelection();
         }
+        /*public virtual void PopUpGrid_Click(object sender, EventArgs e)
+        {
+
+        }
+        public virtual void PopUpGrid_MouseMove(object sender, MouseEventArgs e)
+        {
+
+        }*/
         public virtual void PopUpGrid_CellClick(object sender, EventArgs e)
         {
             this.SelectRecordFromGrid();
