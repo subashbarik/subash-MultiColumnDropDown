@@ -74,16 +74,10 @@ namespace MultiColumnDropDown
             this.DA = new SqlDataAdapter();
             this.Source = new BindingSource();
             this.gridCtrl = new DataGridView();
-
-            // Setup Side and Position of the Grid
-            Rectangle rectMCD = new Rectangle();
-            rectMCD.X = this.GridXPOS;
-            rectMCD.Y = this.GridYPOS + this.OffSetYPOS;
-            rectMCD.Height = this.GridHeight;
-            rectMCD.Width = this.GridWidth;
+           
 
             this.gridCtrl.Size = new System.Drawing.Size(this.GridWidth, this.GridHeight);
-            this.gridCtrl.Location = new Point(rectMCD.X, rectMCD.Y);
+            this.gridCtrl.Location = new Point(this.GridXPOS, this.GridYPOS + this.OffSetYPOS);
 
             //Setup Style - It can be modified to be customizable to be assigned value from out side 
             this.gridCtrl.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
