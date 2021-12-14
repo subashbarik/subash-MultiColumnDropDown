@@ -1,5 +1,5 @@
 ﻿
-/*                      Auther : Subash Chandra Barik 
+/*                      Author : Subash Chandra Barik 
  *                      Date   : 11-12-2021
  *                      Purpose: Purpose of the UserControl is to show multi column grid. It consists of a TextBox Control,
  *                               a Button Control and a DataGridView Control. It display the DataGridView Control when the
@@ -74,7 +74,6 @@ namespace MultiColumnDropDown
             this.DA = new SqlDataAdapter();
             this.Source = new BindingSource();
             this.gridCtrl = new DataGridView();
-           
 
             this.gridCtrl.Size = new System.Drawing.Size(this.GridWidth, this.GridHeight);
             this.gridCtrl.Location = new Point(this.GridXPOS, this.GridYPOS + this.OffSetYPOS);
