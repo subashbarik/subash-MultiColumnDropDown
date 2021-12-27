@@ -21,10 +21,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.ComponentModel.Design;
 
 namespace MultiColumnDropDown
 {
-    public partial class MultiColumnDropDown: UserControl
+    //[Designer("System.Windows.Forms.Design.ParentControlDesigner, System.Design", typeof(IDesigner))]
+    public partial class MultiColumnDropDown : UserControl
     {
         //+ Grid related properties
         public DataGridView gridCtrl { get; set; }
@@ -38,7 +40,7 @@ namespace MultiColumnDropDown
         public bool bGridCreated { get; set; } = false;
         public bool bReadOnly { get; set; } = true;
         public bool bAllowUserToAddRows { get; set; } = false;
-        public GridViewMCD objGVM = null;
+        //public GridViewMCD objGVM = null;
         public List<GridViewData> lstGVD = null;
 
         public bool bGridSetup { get; set; } = false;
@@ -50,20 +52,28 @@ namespace MultiColumnDropDown
         public int PageSize { get; set; }
         public string WhereVal { get; set; } // If we type a value in the textbox control such text will be searched and match records will be displayed in the grid
         public string Sql { get; set; }
+        public string DBColumnName { get; set; } // Name of the column from Database to be set as value in the TextBox Control.
+        public string GridColumnName { get; set; } = ""; // Name of the column from to replace the DBColumnName.
         public bool bFirstFetch { get; set; } = true;
         // - Grid related properties
         //+ TextBox Control Properties
         public string txtCtrlText { get; set; }
         public string txtCtrlValue { get; set; }
+        public string prevTxtCtrlText { get; set; }
+        public string prevTxtCtrlValue { get; set; }
         //- TextBox Control Properties
-
+        public string RecordChangeHandler { get; set; } // Method which will be invoked when Records are changed in the TextBox Control
+        public string ClearFormHandler { get; set; } // Method which will be invoked to clear form data when the TextBox Control record is deleted
         public MultiColumnDropDown()
         {
             InitializeComponent();
             //Initialize the button,textbox and gridview controls of MCD
+            //this.btnMCD.Dock = DockStyle.Right;
+            //this.txtMCD.Dock = DockStyle.Left;
             this.btnCtrl = this.btnMCD;
             this.txtCtrl = this.txtMCD;
-            
+
+
         }
         #region CoreCode
         public virtual void SetUpGrid()
@@ -97,17 +107,18 @@ namespace MultiColumnDropDown
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gridCtrl.RowsDefaultCellStyle = dataGridViewCellStyle2;
 
-            // Set read only property
+            // Set default values of required properties
             this.gridCtrl.ReadOnly = this.bReadOnly;
             this.gridCtrl.AllowUserToAddRows = this.bAllowUserToAddRows;
+            this.gridCtrl.MultiSelect = false;
 
             //Assign events
             //GridView Event Handlers
-            this.gridCtrl.Scroll += new System.Windows.Forms.ScrollEventHandler(this.PopUpGrid_Scroll);
-            this.gridCtrl.SelectionChanged += new System.EventHandler(this.PopUpGrid_SelectionChanged);
-            this.gridCtrl.Leave += new EventHandler(this.PopUpGrid_Leave);
-            this.gridCtrl.KeyDown += new KeyEventHandler(this.PopUpGrid_KeyDown);
-            this.gridCtrl.CellClick += new DataGridViewCellEventHandler(this.PopUpGrid_CellClick);
+            this.gridCtrl.Scroll += new System.Windows.Forms.ScrollEventHandler(this.gridCtrl_Scroll);
+            this.gridCtrl.SelectionChanged += new System.EventHandler(this.gridCtrl_SelectionChanged);
+            this.gridCtrl.Leave += new EventHandler(this.gridCtrl_Leave);
+            this.gridCtrl.KeyDown += new KeyEventHandler(this.gridCtrl_KeyDown);
+            this.gridCtrl.CellClick += new DataGridViewCellEventHandler(this.gridCtrl_CellClick);
             /*this.gridCtrl.Click += new System.EventHandler(this.PopUpGrid_Click);
             this.gridCtrl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PopUpGrid_MouseMove);*/
             this.gridCtrl.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.gridCtrl_DataBindingComplete);
@@ -120,7 +131,7 @@ namespace MultiColumnDropDown
             this.gridCtrl.Visible = false;
 
         }
-        
+
         // Default code to load data into the gridview
         // should be implemented in the form level
         public virtual void FetchData()
@@ -184,8 +195,8 @@ namespace MultiColumnDropDown
             count = this.gridCtrl.Height / count;
             return count;
         }
-        public virtual void PopUpGrid_Scroll(object sender, ScrollEventArgs e)
-        {  
+        public virtual void gridCtrl_Scroll(object sender, ScrollEventArgs e)
+        {
             int display = this.gridCtrl.Rows.Count - this.gridCtrl.DisplayedRowCount(false);
             if (e.Type == ScrollEventType.SmallIncrement || e.Type == ScrollEventType.LargeIncrement)
             {
@@ -197,7 +208,7 @@ namespace MultiColumnDropDown
                 }
             }
         }
-        public virtual void PopUpGrid_SelectionChanged(object sender, EventArgs e)
+        public virtual void gridCtrl_SelectionChanged(object sender, EventArgs e)
         {
             //this.gridCtrl.ClearSelection();
         }
@@ -209,11 +220,11 @@ namespace MultiColumnDropDown
         {
 
         }*/
-        public virtual void PopUpGrid_CellClick(object sender, EventArgs e)
+        public virtual void gridCtrl_CellClick(object sender, EventArgs e)
         {
             this.SelectRecordFromGrid();
         }
-        public virtual void PopUpGrid_KeyDown(object sender, KeyEventArgs e)
+        public virtual void gridCtrl_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
             {
@@ -224,7 +235,7 @@ namespace MultiColumnDropDown
                 this.SelectRecordFromGrid();
             }
         }
-        public virtual void PopUpGrid_Leave(object sender, EventArgs e)
+        public virtual void gridCtrl_Leave(object sender, EventArgs e)
         {
         }
         public virtual void gridCtrl_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
@@ -233,7 +244,7 @@ namespace MultiColumnDropDown
         }
         private void MultiColumnDropDown_Load(object sender, EventArgs e)
         {
-          
+
         }
         public virtual void hideGridView()
         {
@@ -241,6 +252,10 @@ namespace MultiColumnDropDown
         }
         public virtual void SelectRecordFromGrid()
         {
+            // Below assignment required to know if the text or value for the textbox control is changed.
+            this.prevTxtCtrlText = this.txtCtrlText;
+            this.prevTxtCtrlValue = this.txtCtrlValue;
+
             this.txtCtrlText = this.gridCtrl.CurrentRow.Cells["Name"].Value.ToString();
             this.txtCtrlValue = this.gridCtrl.CurrentRow.Cells["ID"].Value.ToString();
             this.txtCtrl.Text = this.gridCtrl.CurrentRow.Cells["Name"].Value.ToString();
@@ -272,6 +287,12 @@ namespace MultiColumnDropDown
         public virtual void txtCtrl_TextChanged(object sender, EventArgs e)
         {
 
+        }
+        public virtual void ClearTxtCtrl()
+        {
+            this.txtCtrl.Text = "";
+            this.txtCtrlText = "";
+            this.txtCtrlValue = "";
         }
         #endregion
 

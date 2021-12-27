@@ -29,39 +29,46 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MultiColumnDropDown));
-            this.btnMCD = new System.Windows.Forms.Button();
             this.txtMCD = new System.Windows.Forms.TextBox();
+            this.btnMCD = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // btnMCD
-            // 
-            this.btnMCD.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnMCD.Image = ((System.Drawing.Image)(resources.GetObject("btnMCD.Image")));
-            this.btnMCD.Location = new System.Drawing.Point(144, 2);
-            this.btnMCD.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.btnMCD.Name = "btnMCD";
-            this.btnMCD.Size = new System.Drawing.Size(14, 18);
-            this.btnMCD.TabIndex = 1;
-            this.btnMCD.UseVisualStyleBackColor = true;
             // 
             // txtMCD
             // 
-            this.txtMCD.Location = new System.Drawing.Point(2, 2);
-            this.txtMCD.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtMCD.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtMCD.Location = new System.Drawing.Point(0, 0);
+            this.txtMCD.Margin = new System.Windows.Forms.Padding(0);
             this.txtMCD.Name = "txtMCD";
-            this.txtMCD.Size = new System.Drawing.Size(143, 20);
-            this.txtMCD.TabIndex = 2;
+            this.txtMCD.Size = new System.Drawing.Size(215, 27);
+            this.txtMCD.TabIndex = 4;
+            // 
+            // btnMCD
+            // 
+            this.btnMCD.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMCD.FlatAppearance.BorderSize = 0;
+            this.btnMCD.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnMCD.Image = ((System.Drawing.Image)(resources.GetObject("btnMCD.Image")));
+            this.btnMCD.Location = new System.Drawing.Point(216, 0);
+            this.btnMCD.Margin = new System.Windows.Forms.Padding(0);
+            this.btnMCD.Name = "btnMCD";
+            this.btnMCD.Size = new System.Drawing.Size(22, 27);
+            this.btnMCD.TabIndex = 3;
+            this.btnMCD.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnMCD.UseVisualStyleBackColor = false;
             // 
             // MultiColumnDropDown
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.txtMCD);
             this.Controls.Add(this.btnMCD);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MultiColumnDropDown";
-            this.Size = new System.Drawing.Size(161, 22);
-            this.Load += new System.EventHandler(this.MultiColumnDropDown_Load);
+            this.Size = new System.Drawing.Size(238, 29);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -69,7 +76,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnMCD;
         private System.Windows.Forms.TextBox txtMCD;
+        private System.Windows.Forms.Button btnMCD;
     }
 }

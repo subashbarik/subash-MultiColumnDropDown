@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MultiColumnDropDown")]
+[assembly: AssemblyTitle("MyTestUserControl")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("TEAM OS")]
-[assembly: AssemblyProduct("MultiColumnDropDown")]
+[assembly: AssemblyProduct("MyTestUserControl")]
 [assembly: AssemblyCopyright("Copyright © TEAM OS 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("3ed7380c-3990-49e3-883a-e845211e2dde")]
+[assembly: Guid("010fd1cb-883d-4b11-bbf7-6a14c262bd1d")]
 
 // Version information for an assembly consists of the following four values:
 //

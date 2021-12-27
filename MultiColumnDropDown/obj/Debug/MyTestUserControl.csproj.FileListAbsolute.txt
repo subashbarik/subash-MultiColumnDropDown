@@ -1,0 +1,7 @@
+c:\users\subash\source\repos\MyTestUserControl\MyTestUserControl\bin\Debug\MyTestUserControl.dll
+c:\users\subash\source\repos\MyTestUserControl\MyTestUserControl\bin\Debug\MyTestUserControl.pdb
+c:\users\subash\source\repos\MyTestUserControl\MyTestUserControl\obj\Debug\MyTestUserControl.UserControl1.resources
+c:\users\subash\source\repos\MyTestUserControl\MyTestUserControl\obj\Debug\MyTestUserControl.csproj.GenerateResource.Cache
+c:\users\subash\source\repos\MyTestUserControl\MyTestUserControl\obj\Debug\MyTestUserControl.csproj.CoreCompileInputs.cache
+c:\users\subash\source\repos\MyTestUserControl\MyTestUserControl\obj\Debug\MyTestUserControl.dll
+c:\users\subash\source\repos\MyTestUserControl\MyTestUserControl\obj\Debug\MyTestUserControl.pdb

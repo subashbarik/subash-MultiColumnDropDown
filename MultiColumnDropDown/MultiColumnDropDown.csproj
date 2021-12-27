@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3ED7380C-3990-49E3-883A-E845211E2DDE}</ProjectGuid>
+    <ProjectGuid>{010FD1CB-883D-4B11-BBF7-6A14C262BD1D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>MultiColumnDropDown</RootNamespace>
     <AssemblyName>MultiColumnDropDown</AssemblyName>
@@ -43,7 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GridViewData.cs" />
-    <Compile Include="GridViewMCD.cs" />
     <Compile Include="MultiColumnDropDown.cs">
       <SubType>UserControl</SubType>
     </Compile>
